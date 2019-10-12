@@ -1,0 +1,45 @@
+Requirements of Technical Specification Document
+
+Describe each game feature from a technical perspective
+Identify programming difficulties of each feature
+Define / pseudo-code core functions each feature will need
+Include the performance impact of each feature
+
+Identify dependencies or assumptions
+Does this code need any libraries or rely on pre-written code?
+  - relies on volume assets
+Are there design assumptions which are actually entire features?
+  -
+
+Prioritize each feature (with reasoning)
+  - microphone support
+  - collision detection with barriers
+  - increased difficulty with levels
+  - leaderboard
+  - art (probably last)
+
+Feasibility analysis
+What are the most difficult items to program regarding technical difficulty?
+  - collision?
+  - microphone support translated to momentum
+What are the commitments regarding time needed to program?
+ Identify technical issues with the design
+  - none identifiable right now
+
+Data storage and variables
+Layout and list all variables,
+  - high score (int)
+  - volume levels (decibel, int)
+
+Label functionality of each variable
+  - high score increases linearly along with time spent in game.
+  - decibel influences height
+Call out any data structures needed for program operation
+  -
+Identify which data is global and which is local
+  - global - high scores
+  - 
+
+Functional code relational map
+How do functions relate to one another
+Which functions are called for which part of the program
