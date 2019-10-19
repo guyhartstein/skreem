@@ -1,0 +1,72 @@
+Requirements of Technical Specification Document
+
+Describe each game feature from a technical perspective
+Identify programming difficulties of each feature
+Define / pseudo-code core functions each feature will need
+Include the performance impact of each feature
+
+Identify dependencies or assumptions
+Does this code need any libraries or rely on pre-written code?
+  - relies on volume assets, ask for microphone permission which could be native based
+Are there design assumptions which are actually entire features?
+  - none identifiable
+
+Prioritize each feature (with reasoning)
+  - microphone support (1-2 classes)
+  - physics engine (shouldn't be TOO bad as these are 2D) (2-3 classes)
+  - collision detection with barriers (1 class?)
+  - increased difficulty with levels (0.5 classes)
+  - 2 player functionality (1 class)
+  - leaderboard (1 class)
+  - art (probably last) (0.5 classes)
+
+Feasibility analysis
+What are the most difficult items to program regarding technical difficulty?
+  - physics engine
+  - microphone support translated to momentum
+  - animation
+
+
+What are the commitments regarding time needed to program?
+ Identify technical issues with the design
+  - none identifiable right now
+
+Data storage and variables
+Layout and list all variables,
+  - high score (int)
+  - volume levels (decibel, int)
+  - x location, y location of player (both ints)
+  - x, y, location of rectangles (ints)
+  - meters ran (int)
+  - speed of walls (double)
+  - width of walls (int)
+
+Label functionality of each variable
+  - high score increases linearly along with time spent in game.
+  - decibel influences height
+  - x, y location of character compares to x/y location of rectangles to detect collision
+  - meters ran is projected
+  - speed/width of walls increases by 1.25x and 2x respectively by stage
+
+Call out any data structures needed for program operation
+  - arrays to store rectangle info
+
+Identify which data is global and which is local
+  - global - high scores
+  - all rest are local
+
+Functional code relational map
+How do functions relate to one another
+  - collision - runs every frame of the game and detects if the x, y location of any part of the
+    player rectangle is inside any part of the barrier rectangle. if so, end game.
+  - calculate high score - meters ran * a constant
+  - increase difficulty - by stage, multiply speed/width of walls by their constants
+  - height - read microphone decibel information and convert it into height
+  - two player switch - after every barrier change sprite
+
+Which functions are called for which part of the program
+  - jumping - height
+  - every frame - collision
+  - every frame - heigh score
+  - 2 player - two player switch
+  - every stage - increase difficuly
