@@ -12,6 +12,8 @@ Each level will consist of the barriers moving faster towards the player.
 
 The objective will be beating high scores on a leaderboard.  The score is kept at the top of the screen as the face surpasses the barriers.  
 
+Objective 2:  Collecting a certain number of points to earn different skins.  Each skin is a new spritesheet that can only be earned by having a certain score stored in cookies. 
+
 4. The game must be designed to support both single and multiplayer modes on the same laptop
 
 The game is multiplayer by having characters switch off between barriers.  It becomes a collaborative game, where the face changes color after each barrier, where ideally two players have to collaborate to pass the barriers.   To change color, the spritesheet is replaced by sprites with the p2 suffix in the git repo.  
