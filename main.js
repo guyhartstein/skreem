@@ -31,7 +31,7 @@ var rafID = null;
 window.onload = function() {
 
     // grab our canvas
-	canvasContext = document.getElementById( "meter" ).getContext("2d");
+	canvasContext = document.getElementById( "canvas" ).getContext("2d");
 
     // monkeypatch Web Audio
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -42,7 +42,7 @@ window.onload = function() {
     // Attempt to get audio input
     try {
         // monkeypatch getUserMedia
-        navigator.getUserMedia =
+          navigator.getUserMedia =
         	navigator.getUserMedia ||
         	navigator.webkitGetUserMedia ||
         	navigator.mozGetUserMedia;
@@ -65,7 +65,6 @@ window.onload = function() {
     }
 
 }
-
 
 function didntGetStream() {
     alert('Stream generation failed.');
