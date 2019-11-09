@@ -36,7 +36,7 @@ window.onload = function() {
                 },
                 "optional": []
             },
-        }, gotStream, didntGetStream;
+        }, gotStream, didntGetStream);
     } catch (e) {
         alert('getUserMedia threw exception :' + e);
     }
