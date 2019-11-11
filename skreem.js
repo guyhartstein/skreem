@@ -91,7 +91,7 @@ var fg = new Image();
 var pipeNorth = new Image();
 var pipeSouth = new Image();
 
-skreem.src = "spriteassets/runningsprite.png";
+skreem.src = "sprites/off.png";
 bg.src = "spriteassets/bg.png";
 fg.src = "spriteassets/fg.png"
 pipeNorth.src = "spriteassets/pipeNorth.png";
@@ -103,7 +103,9 @@ var gap = 85;
 var constant;
 
 var bX = 10;
-var bY = 150;
+var bY = 370;
+var bW = 32;
+var bH = 32;
 
 var gravity = 1.5;
 
@@ -111,12 +113,10 @@ var score = 0;
 
 
 // Create a new volume meter and connect it.
-
-bY -= meter.volume;
-
+var volume = 0;
+bY -= volume;
 
 // pipe coordinates
-
 var pipe = [];
 
 pipe[0] = {
@@ -126,44 +126,45 @@ pipe[0] = {
 
 // draw spriteassets
 
+var frame = 0;
+var clip = 32;
+
 function draw(){
 
     ctx.drawImage(bg,0,0);
-
-
     for(var i = 0; i < pipe.length; i++){
-
         constant = pipeNorth.height+gap;
         ctx.drawImage(pipeNorth,pipe[i].x,pipe[i].y);
         ctx.drawImage(pipeSouth,pipe[i].x,pipe[i].y+constant);
-
         pipe[i].x--;
-
         if( pipe[i].x == 125 ){
             pipe.push({
                 x : cvs.width,
                 y : Math.floor(Math.random()*pipeNorth.height)-pipeNorth.height
             });
         }
-
         // detect collision
-
-        if( bX + skreem.width >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width && (bY <= pipe[i].y + pipeNorth.height || bY+skreem.height >= pipe[i].y+constant) || bY + skreem.height >=  cvs.height - fg.height){
-            location.reload(); // reload the page
+        if( bX + bW >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width && (bY <= pipe[i].y + pipeNorth.height || bY+bH >= pipe[i].y+constant)){
+            location.reload();
+						console.log("pipe collision detected"); // reload the page
         }
-
         if(pipe[i].x == 5){
             score++;
         }
-
-
     }
-
     ctx.drawImage(fg,0,cvs.height - fg.height);
+		//volume switches sprites
 
-    ctx.drawImage(skreem,bX,bY);
+    ctx.drawImage(skreem, Math.floor((frame)/3)*clip, 0, clip, clip, bX, bY, bW, bH);
+		frame++;
 
-    bY += gravity;
+		if(frame > 21){
+			frame = 0;
+		}
+
+    if(bY < 345){
+			bY += gravity;
+		}
 
     ctx.fillStyle = "#000";
     ctx.font = "20px Verdana";
