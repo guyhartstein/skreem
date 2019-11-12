@@ -44,6 +44,8 @@ function createAudioMeter(audioContext,clipLevel,averaging,clipLag) {
 	return processor;
 }
 
+
+
 function volumeAudioProcess( event ) {
 	var buf = event.inputBuffer.getChannelData(0);
     var bufLength = buf.length;
