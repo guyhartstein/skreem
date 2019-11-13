@@ -218,7 +218,7 @@ var clip = 32;
 
 function draw(){
 
-	flY = bY - (2000*volumeFun);
+	flY = bY - (1000*volumeFun);
 
     ctx.drawImage(bg,0,0);
     for(var i = 0; i < pipe.length; i++){
