@@ -150,17 +150,18 @@ function drawLoop( time ) {
     canvasContext.fillRect(0, 0, meter.volume*WIDTH*1.4, HEIGHT);
 		volumeFun = meter.volume;
 
-		if(flY < 10){
+		if(flY < 300){
 			ctx.drawImage(skreem1, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
 			}
-		else if( flY > 10  && volumeFun < 128){
+		else if( flY > 300  && volumeFun < .1){
 			ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
-		else if(volumeFun >= 128 && volumeFun < 256){
+		else if(volumeFun >= .1 && volumeFun < .4){
 			ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
-		else if(volumeFun >= 256){
+		else if(volumeFun >= .4){
 			ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
     // set up the next visual callback
     rafID = window.requestAnimationFrame( drawLoop );
+		console.log(flY,volumeFun);
 
 }
 
