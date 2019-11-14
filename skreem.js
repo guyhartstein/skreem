@@ -150,8 +150,18 @@ function drawLoop( time ) {
     canvasContext.fillRect(0, 0, meter.volume*WIDTH*1.4, HEIGHT);
 		volumeFun = meter.volume;
 
+		if(flY < 10){
+			ctx.drawImage(skreem1, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
+			}
+		else if( flY > 10  && volumeFun < 128){
+			ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+		else if(volumeFun >= 128 && volumeFun < 256){
+			ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+		else if(volumeFun >= 256){
+			ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
     // set up the next visual callback
     rafID = window.requestAnimationFrame( drawLoop );
+
 }
 
 
@@ -161,7 +171,10 @@ var ctx = cvs.getContext('2d');
 
 // load spriteassets
 
-var skreem = new Image();
+var skreem1 = new Image();
+var skreem2 = new Image();
+var skreem3 = new Image();
+var skreem4 = new Image();
 var bg = new Image();
 var fg = new Image();
 var pipeNorth = new Image();
@@ -191,16 +204,20 @@ var gravity = 1.5;
 
 var score = 0;
 
-var flY = 0;;
+var flY = 0;
 
-if(flY < 10){
-	skreem.src = "sprites/off.png";}
-else if( flY > 10  && volumeFun < 128){
-	skreem.src = "sprites/lo.png";}
-else if(volumeFun >= 128 && volumeFun < 256){
-	skreem.src = "sprites/med.png";}
-else if(volumeFun >= 256){
-		skreem.src = "sprites/hi.png";}
+skreem1.src = "sprites/off.png";
+skreem2.src = "sprites/lo.png";
+skreem3.src = "sprites/med.png";
+skreem4.src = "sprites/hi.png";
+// if(flY < 10){
+// 	skreem.src = "sprites/off.png";}
+// else if( flY > 10  && volumeFun < 128){
+// 	skreem.src = "sprites/lo.png";}
+// else if(volumeFun >= 128 && volumeFun < 256){
+// 	skreem.src = "sprites/med.png";}
+// else if(volumeFun >= 256){
+// 	skreem.src = "sprites/hi.png";}
 
 
 // pipe coordinates
@@ -244,7 +261,16 @@ function draw(){
     ctx.drawImage(fg,0,cvs.height - fg.height);
 		//volume switches sprites
 
-    ctx.drawImage(skreem, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
+		// if(flY < 10){
+		// 	ctx.drawImage(skreem1, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
+		// 	}
+		// else if( flY > 10  && volumeFun < 128){
+		// 	ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+		// else if(volumeFun >= 128 && volumeFun < 256){
+		// 	ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+		// else if(volumeFun >= 256){
+		// 	ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+
 		frame++;
 
 		if(frame > 21){
