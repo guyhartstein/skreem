@@ -4,7 +4,7 @@ var canvasContext = null;
 var WIDTH=500;
 var HEIGHT=50;
 var rafID = null;
-
+var highScore=0;
 window.onload = function() {
 
     // grab our canvas
@@ -202,9 +202,7 @@ var bW = 32;
 var bH = 32;
 
 var gravity = 1.5;
-
 var score = 0;
-
 var flY = 0;
 
 skreem1.src = "sprites/off.png";
@@ -219,7 +217,6 @@ skreem4.src = "sprites/hi.png";
 // 	skreem.src = "sprites/med.png";}
 // else if(volumeFun >= 256){
 // 	skreem.src = "sprites/hi.png";}
-
 
 // pipe coordinates
 var pipe = [];
@@ -252,25 +249,18 @@ function draw(){
         }
         // detect collision
         if( bX + bW >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width && (flY <= pipe[i].y + pipeNorth.height || flY+bH >= pipe[i].y+constant)){
-            location.reload();
+						highScore = score;
+						location.reload();
 						console.log("pipe collision detected"); // reload the page
         }
         if(pipe[i].x == 5){
             score++;
+						if(score>highScore){
+							highScore = score;
+						}
         }
     }
     ctx.drawImage(fg,0,cvs.height - fg.height);
-		//volume switches sprites
-
-		// if(flY < 10){
-		// 	ctx.drawImage(skreem1, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
-		// 	}
-		// else if( flY > 10  && volumeFun < 128){
-		// 	ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
-		// else if(volumeFun >= 128 && volumeFun < 256){
-		// 	ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
-		// else if(volumeFun >= 256){
-		// 	ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
 
 		frame++;
 
@@ -285,8 +275,9 @@ function draw(){
     ctx.fillStyle = "#000";
     ctx.font = "20px Verdana";
     ctx.fillText("Score : "+score,10,cvs.height-20);
-
+		ctx.fillText("High score : "+highScore,110, cvs.height-20);
     requestAnimationFrame(draw);
 }
+
 
 draw();
