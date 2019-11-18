@@ -4,7 +4,7 @@ var canvasContext = null;
 var WIDTH=500;
 var HEIGHT=50;
 var rafID = null;
-var highScore=0;
+var highScore=document.cookie;
 window.onload = function() {
 
     // grab our canvas
@@ -155,9 +155,9 @@ function drawLoop( time ) {
 			}
 		else if( flY > 300  && volumeFun < .1){
 			ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
-		else if(volumeFun >= .1 && volumeFun < .4){
+		else if(volumeFun >= .1 && volumeFun < .6){
 			ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
-		else if(volumeFun >= .4){
+		else if(volumeFun >= .6){
 			ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
     // set up the next visual callback
     rafID = window.requestAnimationFrame( drawLoop );
@@ -249,7 +249,6 @@ function draw(){
         }
         // detect collision
         if( bX + bW >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width && (flY <= pipe[i].y + pipeNorth.height || flY+bH >= pipe[i].y+constant)){
-						highScore = score;
 						location.reload();
 						console.log("pipe collision detected"); // reload the page
         }
@@ -257,6 +256,7 @@ function draw(){
             score++;
 						if(score>highScore){
 							highScore = score;
+							document.cookie = highScore;
 						}
         }
     }
