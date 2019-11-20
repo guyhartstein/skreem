@@ -4,7 +4,7 @@ var canvasContext = null;
 var WIDTH=500;
 var HEIGHT=50;
 var rafID = null;
-
+var highScore=document.cookie;
 window.onload = function() {
 
     // grab our canvas
@@ -150,8 +150,19 @@ function drawLoop( time ) {
     canvasContext.fillRect(0, 0, meter.volume*WIDTH*1.4, HEIGHT);
 		volumeFun = meter.volume;
 
+		if(flY < 300){
+			ctx.drawImage(skreem1, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
+			}
+		else if( flY > 300  && volumeFun < .1){
+			ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+		else if(volumeFun >= .1 && volumeFun < .6){
+			ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
+		else if(volumeFun >= .6){
+			ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);}
     // set up the next visual callback
     rafID = window.requestAnimationFrame( drawLoop );
+		console.log(flY,volumeFun);
+
 }
 
 
@@ -161,7 +172,10 @@ var ctx = cvs.getContext('2d');
 
 // load spriteassets
 
-var skreem = new Image();
+var skreem1 = new Image();
+var skreem2 = new Image();
+var skreem3 = new Image();
+var skreem4 = new Image();
 var bg = new Image();
 var fg = new Image();
 var pipeNorth = new Image();
@@ -188,20 +202,21 @@ var bW = 32;
 var bH = 32;
 
 var gravity = 1.5;
-
 var score = 0;
+var flY = 0;
 
-var flY = 0;;
-
-if(flY < 10){
-	skreem.src = "sprites/off.png";}
-else if( flY > 10  && volumeFun < 128){
-	skreem.src = "sprites/lo.png";}
-else if(volumeFun >= 128 && volumeFun < 256){
-	skreem.src = "sprites/med.png";}
-else if(volumeFun >= 256){
-		skreem.src = "sprites/hi.png";}
-
+skreem1.src = "sprites/off.png";
+skreem2.src = "sprites/lo.png";
+skreem3.src = "sprites/med.png";
+skreem4.src = "sprites/hi.png";
+// if(flY < 10){
+// 	skreem.src = "sprites/off.png";}
+// else if( flY > 10  && volumeFun < 128){
+// 	skreem.src = "sprites/lo.png";}
+// else if(volumeFun >= 128 && volumeFun < 256){
+// 	skreem.src = "sprites/med.png";}
+// else if(volumeFun >= 256){
+// 	skreem.src = "sprites/hi.png";}
 
 // pipe coordinates
 var pipe = [];
@@ -234,17 +249,19 @@ function draw(){
         }
         // detect collision
         if( bX + bW >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width && (flY <= pipe[i].y + pipeNorth.height || flY+bH >= pipe[i].y+constant)){
-            location.reload();
+						location.reload();
 						console.log("pipe collision detected"); // reload the page
         }
         if(pipe[i].x == 5){
             score++;
+						if(score>highScore){
+							highScore = score;
+							document.cookie = highScore;
+						}
         }
     }
     ctx.drawImage(fg,0,cvs.height - fg.height);
-		//volume switches sprites
 
-    ctx.drawImage(skreem, Math.floor((frame)/3)*clip, 0, clip, clip, bX, flY, bW, bH);
 		frame++;
 
 		if(frame > 21){
@@ -258,8 +275,9 @@ function draw(){
     ctx.fillStyle = "#000";
     ctx.font = "20px Verdana";
     ctx.fillText("Score : "+score,10,cvs.height-20);
-
+		ctx.fillText("High score : "+highScore,110, cvs.height-20);
     requestAnimationFrame(draw);
 }
+
 
 draw();
