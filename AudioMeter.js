@@ -1,4 +1,27 @@
 /*
+The MIT License (MIT)
+
+Copyright (c) 2014 Chris Wilson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+/*
 Usage:
 audioNode = createAudioMeter(audioContext,clipLevel,averaging,clipLag);
 audioContext: the AudioContext you're using.
@@ -11,7 +34,6 @@ clipLag: how long you would like the "clipping" indicator to show
 Access the clipping through node.checkClipping(); use node.shutdown to get rid of it.
 */
 
-
 function createAudioMeter(audioContext,clipLevel,averaging,clipLag) {
 	var processor = audioContext.createScriptProcessor(512);
 	processor.onaudioprocess = volumeAudioProcess;
@@ -19,7 +41,7 @@ function createAudioMeter(audioContext,clipLevel,averaging,clipLag) {
 	processor.lastClip = 0;
 	processor.volume = 0;
 	processor.clipLevel = clipLevel || 0.98;
-	processor.averaging = averaging || 0.95;
+	processor.averaging = averaging || 0.99;
 	processor.clipLag = clipLag || 750;
 
 	// this will have no effect, since we don't copy the input to the output,
@@ -43,8 +65,6 @@ function createAudioMeter(audioContext,clipLevel,averaging,clipLag) {
 
 	return processor;
 }
-
-
 
 function volumeAudioProcess( event ) {
 	var buf = event.inputBuffer.getChannelData(0);
