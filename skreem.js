@@ -12,17 +12,16 @@ var bg = new Image();
 var fg = new Image();
 var pipeNorth = new Image();
 var pipeSouth = new Image();
-var sY = bY;
+var sY;
 var gap = 150;
 var constant;
 var bX = 10;
-var bY = 370;
+var bY = 350;
 var bW = 32;
 var bH = 32;
 var gravity = 1.5;
 var score = 0;
 var flY = 0;
-var volume = 0;
 var highScore = document.cookie;
 
 bg.src = "spriteassets/bg.png";
@@ -55,30 +54,35 @@ pipe[0] = {
 var frame = 0;
 var clip = 32;
 
-function draw(){
+sY = 300;
+function draw() {
 
-	flY = (volume / 0.15) * (cvs.height-bY);
+	flY = (volume / 0.35) * (cvs.height);
 
     ctx.drawImage(bg,0,0);
 
-		if(flY < 300){
+		//if(flY < 300){
 			ctx.drawImage(skreem1, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);
-			}
-		else if( flY > 300  && volume < .1){
-			ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);}
-		else if(volume >= .1 && volume < .6){
-			ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);}
-		else if(volume >= .6){
-			ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);}
+		//	}
+		// else if( flY > 300  && volume < .1){
+		// 	ctx.drawImage(skreem2, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);}
+		// else if(volume >= .1 && volume < .6){
+		// 	ctx.drawImage(skreem3, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);}
+		// else if(volume >= .6){
+		// 	ctx.drawImage(skreem4, Math.floor((frame)/3)*clip, 0, clip, clip, bX, sY, bW, bH);}
     // set up the next visual callback
 		console.log(flY,volume);
 
-	if(sY < flY){
-		sY--;
-	}
-	else if (sY > flY){
-		sY++;
-	}
+    if(sY <= flY){
+  		sY--;
+  	}
+    if (sY >= flY){
+      if (sY > bY)
+      {
+  		sY++;
+      }
+  	}
+
 
     for(var i = 0; i < pipe.length; i++){
         constant = pipeNorth.height+gap;
